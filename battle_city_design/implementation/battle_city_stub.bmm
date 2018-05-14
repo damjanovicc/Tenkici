@@ -1,4 +1,4 @@
-// File: D:\projekat_lprs_tenkici\battle_city_fpga\battle_city_design\implementation\battle_city_stub.bmm
+// File: C:\Temp\ra235-2013\ProjekatTenkici\projekat_tenkici\Tenkici_ima_da_lete\battle_city_design\implementation\battle_city_stub.bmm
 
 ADDRESS_MAP microblaze_0 MICROBLAZE-LE 100
 	ADDRESS_SPACE microblaze_0_bram_block_combined COMBINED [0x00000000:0x0000ffff]

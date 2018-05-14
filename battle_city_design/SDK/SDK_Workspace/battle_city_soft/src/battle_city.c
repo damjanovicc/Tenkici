@@ -230,12 +230,10 @@ typedef struct {
 } tank_t;
 
 
-
-
 tank_t tank1 = {
     ( MAP_X + MAP_W / 2 +2) * 8,	// x
     ( MAP_Y+2 + MAP_H - 5 ) * 8,		// y
-    DIR_RIGHT,              		// dir
+    DIR_UP,              		// dir
     IMG_16x16_MAIN_TANK,  			// type
 
     b_false,                		// destroyed
@@ -310,7 +308,7 @@ tank_t tank_ai = {
 tank_t tank_ai2 = {
   ( MAP_X +20) * 8,	// x
   ( MAP_Y ) * 8,				// y
-    DIR_RIGHT,              		// dir
+    DIR_LEFT,              		// dir
     IMG_16x16_ENEMY_TANK4,  		// type
 
     b_false,                		// destroyed
@@ -460,6 +458,9 @@ static void tank_spawn( tank_t * tank )
 
 static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
 {
+	tank->dir = dir;
+	set_reg_for_sprite(tank->sprite_reg_id, tank->type, tank->dir, tank->x, tank->y);
+
     unsigned int    x;
     unsigned int    y;
     map_entry_t *   tl;
@@ -523,7 +524,10 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
 
             /*Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + tank->reg_l ), (unsigned int)0x8F000000 | ( (unsigned int)tank->dir << 16 ) | tank->type );
 
-            Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + tank->reg_h ), ( tank->y << 16 ) | tank->x );*/
+
+              Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + tank->reg_h ), ( tank->y << 16 ) | tank->x );*/
+
+
 			set_reg_for_sprite(tank->sprite_reg_id, tank->type, tank->dir, tank->x, tank->y);
 
             return b_true;

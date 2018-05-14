@@ -1,7 +1,7 @@
-INFILE=D:\projekat_lprs_tenkici\battle_city_fpga\battle_city_design\implementation\battle_city.ncd
-OUTFILE=D:\projekat_lprs_tenkici\battle_city_fpga\battle_city_design\implementation\battle_city.bit
+INFILE=C:\Temp\ra235-2013\ProjekatTenkici\projekat_tenkici\Tenkici_ima_da_lete\battle_city_design\implementation\battle_city.ncd
+OUTFILE=C:\Temp\ra235-2013\ProjekatTenkici\projekat_tenkici\Tenkici_ima_da_lete\battle_city_design\implementation\battle_city.bit
 FAMILY=Spartan6
 PART=xc6slx45-2fgg676
-WORKINGDIR=D:\projekat_lprs_tenkici\battle_city_fpga\battle_city_design\implementation
+WORKINGDIR=C:\Temp\ra235-2013\ProjekatTenkici\projekat_tenkici\Tenkici_ima_da_lete\battle_city_design\implementation
 LICENSE=ISE
 USER_INFO=209858334_178080923_210593072_268

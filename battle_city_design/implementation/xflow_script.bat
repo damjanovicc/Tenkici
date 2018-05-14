@@ -6,7 +6,7 @@
 @REM #
 @REM # Command line for ngdbuild
 @REM #
-ngdbuild -p xc6slx45fgg676-2 -nt timestamp -bm battle_city.bmm "D:/projekat_lprs_tenkici/battle_city_fpga/battle_city_design/implementation/battle_city.ngc" -uc battle_city.ucf battle_city.ngd 
+ngdbuild -p xc6slx45fgg676-2 -nt timestamp -bm battle_city.bmm "C:/Temp/ra235-2013/ProjekatTenkici/projekat_tenkici/Tenkici_ima_da_lete/battle_city_design/implementation/battle_city.ngc" -uc battle_city.ucf battle_city.ngd 
 
 @REM #
 @REM # Command line for map
