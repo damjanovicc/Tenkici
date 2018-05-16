@@ -1,0 +1,4 @@
+
+#Created by Constraints Editor (xc6slx45-fgg676-2) - 2015/07/06
+NET "S_AXI_ACLK" TNM_NET = S_AXI_ACLK;
+TIMESPEC TS_S_AXI_ACLK = PERIOD "S_AXI_ACLK" 10 ns HIGH 50%;

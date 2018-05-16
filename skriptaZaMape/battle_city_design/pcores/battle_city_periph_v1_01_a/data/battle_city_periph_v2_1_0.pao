@@ -1,0 +1,13 @@
+##############################################################################
+## Filename:          C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/data/battle_city_periph_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Mon Jul 06 14:45:41 2015 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib battle_city_periph_v1_01_a battle_city_periph vhdl
+lib battle_city_periph_v1_01_a battle_city vhdl
+lib battle_city_periph_v1_01_a ram vhdl
+lib battle_city_periph_v1_01_a vga_ctrl_a vhdl
+lib battle_city_periph_v1_01_a vga_ctrl_e vhdl
+lib battle_city_periph_v1_01_a clk_gen_100MHz_a vhdl
+lib battle_city_periph_v1_01_a clk_gen_100MHz_e vhdl

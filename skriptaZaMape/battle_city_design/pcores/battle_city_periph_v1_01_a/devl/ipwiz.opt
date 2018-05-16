@@ -1,0 +1,8 @@
+-batch 
+-create battle_city_periph 
+-ver 1.01.a 
+-dir "C:\workspace\battle_city_design" 
+-lang vhdl 
+-bus axi4lite s 
+-xps 
+-ise 

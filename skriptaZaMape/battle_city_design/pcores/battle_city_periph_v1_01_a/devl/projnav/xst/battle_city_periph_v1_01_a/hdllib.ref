@@ -1,0 +1,4 @@
+EN battle_city NULL C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/battle_city.vhd sub00/vhpl02 1436280426
+EN ram NULL C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/ram.vhd sub00/vhpl00 1436280424
+AR battle_city behavioral C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/battle_city.vhd sub00/vhpl03 1436280427
+AR ram arch C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/ram.vhd sub00/vhpl01 1436280425

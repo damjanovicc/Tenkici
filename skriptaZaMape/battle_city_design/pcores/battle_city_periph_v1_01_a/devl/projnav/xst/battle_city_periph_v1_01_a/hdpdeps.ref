@@ -1,0 +1,15 @@
+V3 7
+FL C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/battle_city.vhd 2015/07/06.16:32:22 P.68d
+EN battle_city_periph_v1_01_a/battle_city 1436280426 \
+      FL C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/battle_city.vhd \
+      PB ieee/std_logic_1164 1370735607 PB ieee/NUMERIC_STD 1370735611
+AR battle_city_periph_v1_01_a/battle_city/Behavioral 1436280427 \
+      FL C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/battle_city.vhd \
+      EN battle_city_periph_v1_01_a/battle_city 1436280426 CP ram
+FL C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/ram.vhd 2015/06/27.15:53:19 P.68d
+EN battle_city_periph_v1_01_a/ram 1436280424 \
+      FL C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/ram.vhd \
+      PB ieee/std_logic_1164 1370735607 PB ieee/NUMERIC_STD 1370735611
+AR battle_city_periph_v1_01_a/ram/arch 1436280425 \
+      FL C:/workspace/battle_city_design/pcores/battle_city_periph_v1_01_a/devl/projnav/../../hdl/vhdl/ram.vhd \
+      EN battle_city_periph_v1_01_a/ram 1436280424

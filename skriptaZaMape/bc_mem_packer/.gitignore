@@ -1,0 +1,9 @@
+Release
+Debug
+ipch
+*.exe
+*.sdf
+*.opensdf
+*.suo
+*.txt
+bin/*.h
