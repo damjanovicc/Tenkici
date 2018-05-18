@@ -236,8 +236,8 @@ typedef struct {
 
 tank_t tank1 = {
     ( MAP_X + MAP_W / 2 +2) * 8,	// x
-    ( MAP_Y+2 + MAP_H - 5 ) * 8,	// y
-    DIR_UP,              			// dir
+    ( MAP_Y+2 + MAP_H - 5 ) * 8,		// y
+    DIR_UP,              		// dir
     IMG_16x16_MAIN_TANK,  			// type
 
     b_false,                		// destroyed
@@ -264,7 +264,7 @@ tank_t tank1 = {
 tank_t tank1reset = {
 	( MAP_X + MAP_W / 2 +2) * 8,	// x
    ( MAP_Y+2 + MAP_H - 5 ) * 8,		// y
-	DIR_UP,              			// dir
+	DIR_UP,              		// dir
 	IMG_16x16_MAIN_TANK,  			// type
 
 	b_false,                		// destroyed
@@ -310,9 +310,9 @@ tank_t tank_ai = {
 };
 
 tank_t tank_ai2 = {
-  ( MAP_X +20) * 8,					// x
-  ( MAP_Y ) * 8,					// y
-    DIR_LEFT,              			// dir
+  ( MAP_X +20) * 8,	// x
+  ( MAP_Y ) * 8,				// y
+    DIR_LEFT,              		// dir
     IMG_16x16_ENEMY_TANK4,  		// type
 
     b_false,                		// destroyed
@@ -334,7 +334,7 @@ tank_t tank_ai2 = {
 };
 
 tank_t tank_ai_reset = {
-		 MAP_X * 8,							// x
+		 MAP_X * 8,						// x
 		    MAP_Y * 8,						// y
 		    DIR_RIGHT,              		// dir
 		    IMG_16x16_ENEMY_TANK3,  		// type
@@ -360,7 +360,7 @@ tank_t tank_ai_reset = {
 
 
 tank_t tank_ai2_reset = {
-		 (MAP_X+20) * 8,					// x
+		 (MAP_X+20) * 8,						// x
 		    MAP_Y * 8,						// y
 		    DIR_RIGHT,              		// dir
 		    IMG_16x16_ENEMY_TANK4,  		// type
@@ -759,6 +759,8 @@ static void process_bullet( map_entry_t * map, bullet_t * blt )
 
 static void process_ai( tank_t * tank, unsigned int * ai_dir )
 {
+
+
 	unsigned int	tmp_dir;
 	bool_t			turn;
 	bool_t			fire;

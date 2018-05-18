@@ -115,12 +115,8 @@
 #define BULLET1_REG_H                   7
 #define TANK_AI_REG_L                   4
 #define TANK_AI_REG_H                   5
-#define TANK_AI2_REG_L                  12
-#define TANK_AI2_REG_H                  13
 #define BULLET_AI_REG_L                 2
 #define BULLET_AI_REG_H                 3
-#define BULLET_AI2_REG_L                10
-#define BULLET_AI2_REG_H                11
 #define BASE_REG_L						0
 #define BASE_REG_H						1
 
@@ -236,8 +232,8 @@ typedef struct {
 
 tank_t tank1 = {
     ( MAP_X + MAP_W / 2 +2) * 8,	// x
-    ( MAP_Y+2 + MAP_H - 5 ) * 8,	// y
-    DIR_UP,              			// dir
+    ( MAP_Y+2 + MAP_H - 5 ) * 8,		// y
+    DIR_UP,              		// dir
     IMG_16x16_MAIN_TANK,  			// type
 
     b_false,                		// destroyed
@@ -264,7 +260,7 @@ tank_t tank1 = {
 tank_t tank1reset = {
 	( MAP_X + MAP_W / 2 +2) * 8,	// x
    ( MAP_Y+2 + MAP_H - 5 ) * 8,		// y
-	DIR_UP,              			// dir
+	DIR_RIGHT,              		// dir
 	IMG_16x16_MAIN_TANK,  			// type
 
 	b_false,                		// destroyed
@@ -288,7 +284,7 @@ tank_t tank_ai = {
     MAP_X * 8,						// x
     MAP_Y * 8,						// y
     DIR_RIGHT,              		// dir
-    IMG_16x16_ENEMY_TANK3,  		// type
+    IMG_16x16_ENEMY_TANK4,  		// type
 
     b_false,                		// destroyed
 
@@ -306,13 +302,13 @@ tank_t tank_ai = {
     },
 
 
-    ENEMY0
+    ENEMY2
 };
 
 tank_t tank_ai2 = {
-  ( MAP_X +20) * 8,					// x
-  ( MAP_Y ) * 8,					// y
-    DIR_LEFT,              			// dir
+  ( MAP_X +20) * 8,	// x
+  ( MAP_Y ) * 8,				// y
+    DIR_LEFT,              		// dir
     IMG_16x16_ENEMY_TANK4,  		// type
 
     b_false,                		// destroyed
@@ -326,18 +322,18 @@ tank_t tank_ai2 = {
         0,                  		// bullet.time
         b_false,            		// bullet.explosion
 
-        BULLET_AI2_REG_L,      		// bullet.reg_l
-        BULLET_AI2_REG_H       		// bullet.reg_h
+        BULLET_AI_REG_L,      		// bullet.reg_l
+        BULLET_AI_REG_H       		// bullet.reg_h
     },
 
     ENEMY1
 };
 
 tank_t tank_ai_reset = {
-		 MAP_X * 8,							// x
+		 MAP_X * 8,						// x
 		    MAP_Y * 8,						// y
 		    DIR_RIGHT,              		// dir
-		    IMG_16x16_ENEMY_TANK3,  		// type
+		    IMG_16x16_ENEMY_TANK4,  		// type
 
 		    b_false,                		// destroyed
 
@@ -355,12 +351,12 @@ tank_t tank_ai_reset = {
 		    },
 
 
-		    ENEMY0
+		    ENEMY2
 };
 
 
 tank_t tank_ai2_reset = {
-		 (MAP_X+20) * 8,					// x
+		 (MAP_X+20) * 8,						// x
 		    MAP_Y * 8,						// y
 		    DIR_RIGHT,              		// dir
 		    IMG_16x16_ENEMY_TANK4,  		// type
@@ -376,8 +372,8 @@ tank_t tank_ai2_reset = {
 		        0,                  		// bullet.time
 		        b_false,            		// bullet.explosion
 
-		        BULLET_AI2_REG_L,      		// bullet.reg_l
-		        BULLET_AI2_REG_H       		// bullet.reg_h
+		        BULLET_AI_REG_L,      		// bullet.reg_l
+		        BULLET_AI_REG_H       		// bullet.reg_h
 		    },
 
 		    ENEMY1
@@ -512,15 +508,15 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
 
     if( tank->x != x || tank->y != y ) {
         // Tank can move if water, iron or brick wall isn't ahead.
-        if( tl->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER && tl->ptr != IMG_16x16_ENEMY_TANK4 && tl->ptr != IMG_16x16_ENEMY_TANK3 &&
-			tc->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER && tc->ptr != IMG_16x16_ENEMY_TANK4 && tc->ptr != IMG_16x16_ENEMY_TANK3 &&
-			tr->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER && tr->ptr != IMG_16x16_ENEMY_TANK4 && tr->ptr != IMG_16x16_ENEMY_TANK3 &&
-			cl->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER && cl->ptr != IMG_16x16_ENEMY_TANK4 && cl->ptr != IMG_16x16_ENEMY_TANK3 &&
-			cc->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER && cc->ptr != IMG_16x16_ENEMY_TANK4 && cc->ptr != IMG_16x16_ENEMY_TANK3 &&
-			cr->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER && cr->ptr != IMG_16x16_ENEMY_TANK4 && cr->ptr != IMG_16x16_ENEMY_TANK3 &&
-        	bl->ptr != IMG_8x8_BRICK && tr->ptr != IMG_8x8_IRON && tr->ptr != IMG_8x8_WATER && bl->ptr != IMG_16x16_ENEMY_TANK4 && bl->ptr != IMG_16x16_ENEMY_TANK3 &&
-        	bc->ptr != IMG_8x8_BRICK && bl->ptr != IMG_8x8_IRON && bl->ptr != IMG_8x8_WATER && bc->ptr != IMG_16x16_ENEMY_TANK4 && bc->ptr != IMG_16x16_ENEMY_TANK3 &&
-        	br->ptr != IMG_8x8_BRICK && br->ptr != IMG_8x8_IRON && br->ptr != IMG_8x8_WATER && br->ptr != IMG_16x16_ENEMY_TANK4 && br->ptr != IMG_16x16_ENEMY_TANK3) {
+        if( tl->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER &&
+			tc->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER &&
+			tr->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER &&
+			cl->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER &&
+			cc->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER &&
+			cr->ptr != IMG_8x8_BRICK && tl->ptr != IMG_8x8_IRON && tl->ptr != IMG_8x8_WATER &&
+        	bl->ptr != IMG_8x8_BRICK && tr->ptr != IMG_8x8_IRON && tr->ptr != IMG_8x8_WATER &&
+        	bc->ptr != IMG_8x8_BRICK && bl->ptr != IMG_8x8_IRON && bl->ptr != IMG_8x8_WATER &&
+        	br->ptr != IMG_8x8_BRICK && br->ptr != IMG_8x8_IRON && br->ptr != IMG_8x8_WATER) {
 
             tank->x = x;
             tank->y = y;
@@ -587,7 +583,7 @@ static void tank_fire( map_entry_t * map, tank_t * tank )
         blt->explosion = b_false;
         blt->time = game_time;
 
-        Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_l  ), (unsigned int)0x8F000000 | ( (unsigned int)blt->dir << 16 ) | (unsigned int)IMG_16x16_BULLET );
+        Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_l ), (unsigned int)0x8F000000 | ( (unsigned int)blt->dir << 16 ) | (unsigned int)IMG_16x16_BULLET );
         Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_h ), ( blt->y << 16 ) | blt->x );
     }
 }
@@ -596,6 +592,130 @@ static bool_t hitbox( unsigned int x1, unsigned int y1, unsigned int x2, unsigne
 {
 	return ( x1 >= x2 && x1 <= x2 + w && y1 >= y2 && y1 <= y2 + h ) ? b_true : b_false;
 }
+
+static void process_bullet1( map_entry_t * map, bullet_t * blt )
+{
+    unsigned int    x;
+    unsigned int    y;
+    map_entry_t *   tl;
+    map_entry_t *   tr;
+   	map_entry_t *   bl;
+   	map_entry_t *   br;
+
+
+	if( !blt->enabled ) {
+		return;
+	}
+
+    if( blt->explosion ) {
+        if( game_time > blt->time + BULLET_EXPLOSION_DURATION ) {
+            blt->enabled = b_false;
+            Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_l ), 0x0F000000 );
+        }
+    } else {
+        if( game_time > blt->time + BULLET_STEP_DURATION ) {
+            blt->time = game_time;
+
+            x = blt->x;
+            y = blt->y;
+
+            // Make sure that coordinates will stay within map boundaries after moving.
+            if( blt->dir == DIR_LEFT ) {
+                if( x > MAP_X * 8 )
+                    x--;
+            } else if( blt->dir == DIR_RIGHT ) {
+                if( x < ( MAP_X + MAP_W ) * 8 - 16 )
+                    x++;
+            } else if( blt->dir == DIR_UP ) {
+                if( y > MAP_Y * 8 )
+                    y--;
+            } else if( blt->dir == DIR_DOWN ) {
+                if( y < ( MAP_Y + MAP_H ) * 8 - 16 )
+                    y++;
+            }
+
+            tl = &map[ ( ( y + 4 ) / 8 ) * MAP_WIDTH + ( ( x + 4 ) / 8 ) ];
+			tr = &map[ ( ( y + 4 ) / 8 ) * MAP_WIDTH + ( ( x + 11 ) / 8 ) ];
+			bl = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 4 ) / 8 ) ];
+			br = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 15 ) / 8 ) ];
+
+            if( blt->x != x || blt->y != y ) {
+            	if( blt == &tank1.bullet ) {
+					if( hitbox( x, y, tank_ai.x, tank_ai.y, 16, 16 ) == b_true ) {
+						game_result = RES_VICTORY;
+						return;
+					} else if ( hitbox( x, y, BASE_X, BASE_Y, 16, 16 ) == b_true ) {
+						game_result = RES_LOSS;
+						return;
+					}
+            	} else {
+					if( hitbox( x, y, tank1.x, tank1.y, 16, 16 ) == b_true ) {
+						game_result = RES_LOSS;
+						return;
+					}
+            	}
+
+           	if( tl->ptr == IMG_8x8_BRICK || tl->ptr == IMG_8x8_IRON ) {
+            	                	if( tl->ptr == IMG_8x8_BRICK ) {
+            	                		tl->ptr = IMG_8x8_NULL;
+            	                    	tl->update = b_true;
+            	                	}
+
+            	                    blt->explosion = b_true;
+            	                    blt->time = game_time;
+
+            	                    Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_l ), (unsigned int)0x8F000000 | (unsigned int)IMG_16x16_EXPLOSION );
+            	                    Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_h ), ( blt->y << 16 ) | blt->x);
+            	                } else if( tr->ptr == IMG_8x8_BRICK || tr->ptr == IMG_8x8_IRON ) {
+            	                	if( tr->ptr == IMG_8x8_BRICK ) {
+            	                		tr->ptr = IMG_8x8_NULL;
+            	                    	tr->update = b_true;
+            	                	}
+
+            	                    blt->explosion = b_true;
+            	                    blt->time = game_time;
+
+            	                    Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_l ), (unsigned int)0x8F000000 | (unsigned int)IMG_16x16_EXPLOSION );
+            	                    Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_h ), ( blt->y << 16 ) | blt->x );
+            	                } else if( bl->ptr == IMG_8x8_BRICK || bl->ptr == IMG_8x8_IRON ) {
+            	                	if( bl->ptr == IMG_8x8_BRICK ) {
+            	                		bl->ptr = IMG_8x8_NULL;
+            	                    	bl->update = b_true;
+            	                	}
+
+            	                    blt->explosion = b_true;
+            	                    blt->time = game_time;
+
+            	                    Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_l ), (unsigned int)0x8F000000 | (unsigned int)IMG_16x16_EXPLOSION );
+            	                    Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_h ), ( blt->y << 16 ) | blt->x);
+            	                } else if( br->ptr == IMG_8x8_BRICK || br->ptr == IMG_8x8_IRON ) {
+            	                	if( br->ptr == IMG_8x8_BRICK ) {
+            	                		br->ptr = IMG_8x8_NULL;
+            	                    	br->update = b_true;
+            	                	}
+
+            	                    blt->explosion = b_true;
+            	                    blt->time = game_time;
+
+            	                    Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_l ), (unsigned int)0x8F000000 | (unsigned int)IMG_16x16_EXPLOSION );
+            	                    Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_h ), ( blt->y << 16 ) | blt->x );
+            	                }
+            	                 else {
+            	                    blt->x = x;
+            	                    blt->y = y;
+
+            	                    Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_h ), ( blt->y << 16 ) | blt->x);
+            	                }
+            	            } else {
+            	                blt->enabled = b_false;
+            	                Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_l ), 0x0F000000 );
+            	            }
+        }
+    }
+}
+
+
+
 
 
 static void process_bullet( map_entry_t * map, bullet_t * blt )
@@ -642,14 +762,11 @@ static void process_bullet( map_entry_t * map, bullet_t * blt )
             tl = &map[ ( ( y + 4 ) / 8 ) * MAP_WIDTH + ( ( x + 4 ) / 8 ) ];
 			tr = &map[ ( ( y + 4 ) / 8 ) * MAP_WIDTH + ( ( x + 11 ) / 8 ) ];
 			bl = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 4 ) / 8 ) ];
-			br = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 11 ) / 8 ) ];/////menjano sa 15
+			br = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 15 ) / 8 ) ];
 
             if( blt->x != x || blt->y != y ) {
             	if( blt == &tank1.bullet ) {
 					if( hitbox( x, y, tank_ai2.x, tank_ai2.y, 16, 16 ) == b_true ) {
-						game_result = RES_VICTORY;
-						return;
-					} else if ( hitbox( x, y, tank_ai.x, tank_ai.y, 16, 16 ) == b_true ) {
 						game_result = RES_VICTORY;
 						return;
 					} else if ( hitbox( x, y, BASE_X, BASE_Y, 16, 16 ) == b_true ) {
@@ -764,9 +881,6 @@ static void process_ai( tank_t * tank, unsigned int * ai_dir )
 	bool_t			fire;
 	unsigned int	i;
 
-	if( game_time % 111 == 0 )
-			fire = b_true;
-
 	if( game_time % 300 == 0 ) {
 		turn = b_true;
 	} else {
@@ -792,10 +906,10 @@ static void process_ai( tank_t * tank, unsigned int * ai_dir )
 	}
 
 	i = 0;
-
+	fire = b_false;
 
 	if( *ai_dir == DIR_DOWN ) {
-		while( tank->y / 8 + i < MAP_Y + MAP_H) {   //////
+		while( tank->y / 8 + i < MAP_Y + MAP_H ) {
 			if( mape[ ( tank->y / 8 + i ) * MAP_WIDTH + tank->x / 8 ].ptr == IMG_8x8_BRICK ||
 				mape[ ( tank->y / 8 + i ) * MAP_WIDTH + tank->x / 8 ].ptr == IMG_8x8_IRON ) {
 				break;
@@ -810,7 +924,7 @@ static void process_ai( tank_t * tank, unsigned int * ai_dir )
 		while( tank->y / 8 - i > MAP_Y ) {
 			if( mape[ ( tank->y / 8 - i ) * MAP_WIDTH + tank->x / 8 ].ptr == IMG_8x8_BRICK ||
 				mape[ ( tank->y / 8 - i ) * MAP_WIDTH + tank->x / 8 ].ptr == IMG_8x8_IRON ) {
-				fire = b_false;///
+				fire = b_false;
 				break;
 			} else if( hitbox( tank->x, tank->y - i * 8, tank1.x, tank1.y, 16, 16 ) == b_true ) {
 				fire = b_true;
@@ -860,9 +974,6 @@ static void process_ai2( tank_t * tank, unsigned int * ai_dir2 )
 	bool_t			fire;
 	unsigned int	i;
 
-	if( game_time % 111 == 0 )
-				fire = b_true;
-
 	if( game_time % 300 == 0 ) {
 		turn = b_true;
 	} else {
@@ -888,7 +999,7 @@ static void process_ai2( tank_t * tank, unsigned int * ai_dir2 )
 	}
 
 	i = 0;
-	//fire = b_false;
+	fire = b_false;
 
 	if( *ai_dir2 == DIR_DOWN ) {
 		while( tank->y / 8 + i < MAP_Y + MAP_H ) {
@@ -1134,13 +1245,14 @@ void battle_city( void )
 				}
 
 				process_ai( &tank_ai, &ai_dir );
+
 				process_ai2( &tank_ai2, &ai_dir2);
 
 			}
-			process_bullet( mape, &tank1.bullet );
-			process_bullet( mape, &tank_ai.bullet );
-			process_bullet( mape, &tank_ai2.bullet );
 
+			//process_bullet1( mape, &tank_ai.bullet );
+			//process_bullet( mape, &tank_ai2.bullet );
+			process_bullet( mape, &tank1.bullet );
 			map_update( mape );
 
 			if( game_result == RES_VICTORY ) {
