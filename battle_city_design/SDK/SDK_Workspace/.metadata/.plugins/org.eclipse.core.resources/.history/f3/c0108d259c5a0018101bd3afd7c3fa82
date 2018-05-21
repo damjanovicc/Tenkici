@@ -1168,7 +1168,7 @@ void battle_city( void )
     map_reset( mape );
 
     draw_string( 18, 1, title );
-    base.type=IMG_16x16_BASE_ALIVE;
+
     tank_spawn( &tank1 );
     tank_spawn( &tank_ai );
     tank_spawn( &tank_ai2 );
@@ -1352,13 +1352,12 @@ void battle_city( void )
 
 
 			} else if( game_result == RES_LOSS ) {
-				draw_string( 18, 1, game_loss );
 				if(base.destroyed==b_true){
 				base.type=IMG_16x16_BASE_DEAD;
-				base_spawn( &base);
+				sleep(3000);
 				}
-
-				sleep(350);
+				draw_string( 18, 1, game_loss );
+				sleep(500);
 
 				rbm=1;
 				for(cekaj = 0; cekaj < 5000000; cekaj++);

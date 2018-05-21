@@ -238,6 +238,7 @@ typedef struct {
 typedef struct {
     unsigned int    x;
     unsigned int    y;
+    direction_t     dir;
 
     unsigned int    type;
 
@@ -248,11 +249,12 @@ typedef struct {
 } base_t;
 
 base_t base = {
-		( MAP_X + MAP_W / 2 +2) * 8 - 24 ,	//311
-		( MAP_Y+2 + MAP_H - 5 ) * 8 + 8 ,	//463
+		 (MAP_Y + MAP_H - 2 ) * 8 ,	//311
+		 (MAP_X + MAP_W / 2 - 1 ) * 8  ,	//463
 
 		IMG_16x16_BASE_ALIVE,  			// type
 
+		DIR_RIGHT,
 
     b_false,                		// destroyed
 
@@ -421,7 +423,7 @@ static void tank_spawn( tank_t * tank )
 static void base_spawn(base_t * base) {
 	Xil_Out32(
 			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + base->reg_l ),
-			(u32 )0x8F000000 | 0 | (u32 )base->type);
+			(u32 )0x8F000000 | ( base->dir << 16 ) | (u32 )base->type);
 	Xil_Out32(
 			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + base->reg_h ),
 			(base->y << 16) | base->x);
@@ -691,7 +693,8 @@ static void process_bullet( map_entry_t * map, bullet_t * blt )
 						Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_h ), ( blt->y << 16 ) | blt->x);
 						sleep(10);
 						blt->explosion=b_true;
-
+						base.type=IMG_16x16_BASE_DEAD;
+						sleep(300);
 						base.destroyed=b_true;
 
 						game_result = RES_LOSS;
@@ -1168,7 +1171,7 @@ void battle_city( void )
     map_reset( mape );
 
     draw_string( 18, 1, title );
-    base.type=IMG_16x16_BASE_ALIVE;
+
     tank_spawn( &tank1 );
     tank_spawn( &tank_ai );
     tank_spawn( &tank_ai2 );
@@ -1353,13 +1356,7 @@ void battle_city( void )
 
 			} else if( game_result == RES_LOSS ) {
 				draw_string( 18, 1, game_loss );
-				if(base.destroyed==b_true){
-				base.type=IMG_16x16_BASE_DEAD;
-				base_spawn( &base);
-				}
-
-				sleep(350);
-
+				sleep(500);
 				rbm=1;
 				for(cekaj = 0; cekaj < 5000000; cekaj++);
 
@@ -1377,9 +1374,8 @@ void battle_city( void )
 					    tank_spawn( &tank1 );
 					    tank_spawn( &tank_ai2 );
 					    tank_spawn( &tank_ai );
-					    base.type=IMG_16x16_BASE_ALIVE;
-					    base_spawn( &base);
 
+					    base_spawn( &base);
 					    continue;
 				}
 			}
