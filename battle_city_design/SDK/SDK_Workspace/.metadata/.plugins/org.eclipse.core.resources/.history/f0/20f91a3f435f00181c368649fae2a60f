@@ -1040,7 +1040,7 @@ static void process_ai( tank_t * tank, unsigned int * ai_dir )
 	bool_t			fire;
 	unsigned int	i;
 
-	if( game_time % 111 == 0 )
+	if( game_time % 250 == 0 )
 			fire = b_true;
 
 	if( game_time % 320 == 0 ) {
@@ -1086,7 +1086,7 @@ static void process_ai2( tank_t * tank, unsigned int * ai_dir2 )
 	bool_t			fire;
 	unsigned int	i;
 
-	if( game_time % 95 == 0 )
+	if( game_time % 250 == 0 )
 				fire = b_true;
 
 	if( game_time % 130 == 0 ) {
@@ -1140,11 +1140,10 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 			tank_move( mape, &tank_ai3, DIR_RIGHT);
 		}*/
 
-
-	if( game_time % 140 == 0 )
+	if( game_time % 250 == 0 )
 				fire = b_true;
 
-	if( game_time % 140 == 0 ) {
+	if( game_time % 150 == 0 ) {
 		turn = b_true;
 	} else {
 		turn = b_false;
@@ -1182,7 +1181,7 @@ static void process_ai4( tank_t * tank, unsigned int * ai_dir4 )
 	bool_t			fire;
 	unsigned int	i;
 
-	if( game_time % 100 == 0 )
+	if( game_time % 250 == 0 )
 				fire = b_true;
 
 	if( game_time % 180 == 0 ) {

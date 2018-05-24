@@ -1144,7 +1144,7 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 	if( game_time % 140 == 0 )
 				fire = b_true;
 
-	if( game_time % 140 == 0 ) {
+	if( game_time % 42 == 0 ) {
 		turn = b_true;
 	} else {
 		turn = b_false;

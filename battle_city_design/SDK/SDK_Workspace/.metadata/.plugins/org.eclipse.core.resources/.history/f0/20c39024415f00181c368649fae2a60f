@@ -1127,24 +1127,11 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 	bool_t			turn;
 	bool_t			fire;
 	unsigned int	i;
-	/*if((rand_lfsr113( ) % 4) ==2){
-		tank_move( mape, &tank_ai3, DIR_DOWN);
-	}
-	if((rand_lfsr113( ) % 4) ==3){
-		tank_move( mape, &tank_ai3, DIR_UP);
-	}
-	if((rand_lfsr113( ) % 4) ==1){
-			tank_move( mape, &tank_ai3, DIR_LEFT);
-		}
-	if((rand_lfsr113( ) % 4) ==0){
-			tank_move( mape, &tank_ai3, DIR_RIGHT);
-		}*/
-
 
 	if( game_time % 140 == 0 )
 				fire = b_true;
 
-	if( game_time % 140 == 0 ) {
+	if( game_time % 150 == 0 ) {
 		turn = b_true;
 	} else {
 		turn = b_false;
@@ -1413,9 +1400,9 @@ void battle_city( void )
     base_spawn( &base);
 
     while( 1 ) {
-			if( game_time % 7 == 0 ) {
+			if( game_time % 14 == 0 ) {
 				buttons = XIo_In32( XPAR_IO_PERIPH_BASEADDR );
-				if( game_time % 14 == 0 ){
+
 				if( BTN_UP( buttons ) ) {
 					tank_move( mape, &tank1, DIR_UP );
 				} else if( BTN_DOWN( buttons ) ) {
@@ -1427,8 +1414,7 @@ void battle_city( void )
 				} else if( BTN_SHOOT( buttons ) ) {
 					tank_fire( mape, &tank1 );
 				}
-				}
-				if( game_time % 21 == 0 ){
+				if( game_time % 45 == 0 ){
 				process_ai( &tank_ai, &ai_dir );
 				process_ai2( &tank_ai2, &ai_dir2);
 				process_ai3( &tank_ai3, &ai_dir3);

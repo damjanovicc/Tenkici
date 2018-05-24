@@ -519,27 +519,6 @@ static direction_t change_dir(direction_t dir){
 }
 
 
-static void direction_veto(){
-	if (tank_ai.dir==tank_ai2.dir){
-		if(tank_ai3.dir==tank_ai.dir){
-			tank_ai3.dir=change_dir(tank_ai3.dir);
-						}
-		if(tank_ai4.dir==tank_ai.dir){
-			tank_ai4.dir=change_dir(tank_ai4.dir);
-						}
-	}else if(tank_ai.dir==tank_ai3.dir){
-		if(tank_ai4.dir==tank_ai.dir){
-			tank_ai4.dir=change_dir(tank_ai4.dir);
-				}
-	}else if(tank_ai2.dir==tank_ai3.dir){
-		if(tank_ai4.dir==tank_ai2.dir){
-			tank_ai4.dir=change_dir(tank_ai4.dir);
-		}
-
-	}
-}
-
-
 static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
 {
 	obj_spawn(tank);
@@ -608,44 +587,36 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
         	br->ptr != IMG_8x8_BRICK && br->ptr != IMG_8x8_IRON && br->ptr != IMG_8x8_WATER)
         {
 
-        	/*//if(x==tank_ai.x && y==tank_ai.y)
+        	if(tank->x==tank_ai.x && tank->y==tank_ai.y)
         		if(hitbox(x, y, tank_ai.x, tank_ai.y, 16, 16, dir) ==b_true){
         			/*tank_ai.dir=change_dir(tank_ai.dir);
         			//tank_ai.dir=DIR_DOWN;
-        			tank_move(map,&tank_ai,tank_ai.dir);
+        			tank_move(map,&tank_ai,tank_ai.dir);*/
         			tank->dir=change_dir(tank->dir);
-        			direction_veto();
-        			tank_move(map,tank,tank->dir);
         			flagenzi=1;
         			return b_true;
         	}
 
-        	//if(x==tank_ai2.x && y==tank_ai2.y)
+        	if(tank->x==tank_ai2.x && tank->y==tank_ai2.y)
         		if(hitbox(x, y, tank_ai2.x, tank_ai2.y, 16, 16, dir) ==b_true){
         			tank->dir=change_dir(tank->dir);
-        			direction_veto();
-        			tank_move(map,tank,tank->dir);
         			flagenzi=1;
         			return b_true;
         	}
 
-        	//if(x==tank_ai3.x && y==tank_ai3.y)
+        	if(tank->x==tank_ai3.x && tank->y==tank_ai3.y)
         		if(hitbox(x, y, tank_ai3.x, tank_ai3.y, 16, 16, dir) ==b_true){
-        			tank->dir=change_dir(tank->dir);
-        			direction_veto();
-        			tank_move(map,tank,tank->dir);
+        			tank->dir=change_dir(tank->dir);;
         			flagenzi=1;
         			return b_true;
         	}
 
-        	//if(x==tank_ai4.x && y==tank_ai4.y)
+        	if(tank->x==tank_ai4.x && tank->y==tank_ai4.y)
         		if(hitbox(x, y, tank_ai4.x, tank_ai4.y, 16, 16, dir) ==b_true){
         			tank->dir=change_dir(tank->dir);
-        			direction_veto();
-        			tank_move(map,tank,tank->dir);
         			flagenzi=1;
         			return b_true;
-        	}*/
+        	}
 
         			if(flagenzi==0){
         			tank->x = x;
@@ -1127,24 +1098,11 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 	bool_t			turn;
 	bool_t			fire;
 	unsigned int	i;
-	/*if((rand_lfsr113( ) % 4) ==2){
-		tank_move( mape, &tank_ai3, DIR_DOWN);
-	}
-	if((rand_lfsr113( ) % 4) ==3){
-		tank_move( mape, &tank_ai3, DIR_UP);
-	}
-	if((rand_lfsr113( ) % 4) ==1){
-			tank_move( mape, &tank_ai3, DIR_LEFT);
-		}
-	if((rand_lfsr113( ) % 4) ==0){
-			tank_move( mape, &tank_ai3, DIR_RIGHT);
-		}*/
-
 
 	if( game_time % 140 == 0 )
 				fire = b_true;
 
-	if( game_time % 140 == 0 ) {
+	if( game_time % 150 == 0 ) {
 		turn = b_true;
 	} else {
 		turn = b_false;
@@ -1182,7 +1140,7 @@ static void process_ai4( tank_t * tank, unsigned int * ai_dir4 )
 	bool_t			fire;
 	unsigned int	i;
 
-	if( game_time % 100 == 0 )
+	if( game_time % 56 == 0 )
 				fire = b_true;
 
 	if( game_time % 180 == 0 ) {
@@ -1413,9 +1371,9 @@ void battle_city( void )
     base_spawn( &base);
 
     while( 1 ) {
-			if( game_time % 7 == 0 ) {
+			if( game_time % 14 == 0 ) {
 				buttons = XIo_In32( XPAR_IO_PERIPH_BASEADDR );
-				if( game_time % 14 == 0 ){
+
 				if( BTN_UP( buttons ) ) {
 					tank_move( mape, &tank1, DIR_UP );
 				} else if( BTN_DOWN( buttons ) ) {
@@ -1427,13 +1385,11 @@ void battle_city( void )
 				} else if( BTN_SHOOT( buttons ) ) {
 					tank_fire( mape, &tank1 );
 				}
-				}
-				if( game_time % 21 == 0 ){
+
 				process_ai( &tank_ai, &ai_dir );
 				process_ai2( &tank_ai2, &ai_dir2);
 				process_ai3( &tank_ai3, &ai_dir3);
 				process_ai4( &tank_ai4, &ai_dir4);
-				}
 
 			}
 			process_bullet( mape, &tank1.bullet );

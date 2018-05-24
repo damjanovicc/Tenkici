@@ -1127,7 +1127,7 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 	bool_t			turn;
 	bool_t			fire;
 	unsigned int	i;
-	/*if((rand_lfsr113( ) % 4) ==2){
+	if((rand_lfsr113( ) % 4) ==2){
 		tank_move( mape, &tank_ai3, DIR_DOWN);
 	}
 	if((rand_lfsr113( ) % 4) ==3){
@@ -1138,13 +1138,12 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 		}
 	if((rand_lfsr113( ) % 4) ==0){
 			tank_move( mape, &tank_ai3, DIR_RIGHT);
-		}*/
-
+		}
 
 	if( game_time % 140 == 0 )
 				fire = b_true;
 
-	if( game_time % 140 == 0 ) {
+	if( game_time % 150 == 0 ) {
 		turn = b_true;
 	} else {
 		turn = b_false;
