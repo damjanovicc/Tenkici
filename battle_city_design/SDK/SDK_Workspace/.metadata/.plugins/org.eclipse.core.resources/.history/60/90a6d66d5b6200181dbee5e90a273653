@@ -245,20 +245,18 @@ typedef struct {
     unsigned int    reg_h;
 } base_t;
 
-
 base_t base = {
 		( MAP_X + MAP_W / 2 +2) * 8 - 24 ,	//311
 		( MAP_Y+2 + MAP_H - 5 ) * 8 + 8 ,	//463
 
-		IMG_16x16_BASE_ALIVE,  				// type
+		IMG_16x16_BASE_ALIVE,  			// type
 
 
-    b_false,                				// destroyed
+    b_false,                		// destroyed
 
     BASE_REG_L,
     BASE_REG_H
 };
-
 
 tank_t tank1 = {
     ( MAP_X + MAP_W / 2 +2) * 8,	// x
@@ -366,7 +364,6 @@ tank_t tank_ai3 = {
     TANK_AI3_REG_H
 };
 
-
 tank_t tank_ai4 = {
   ( MAP_X +15) * 8,					// x
   ( MAP_Y ) * 8,					// y
@@ -384,17 +381,16 @@ tank_t tank_ai4 = {
         0,                  		// bullet.time
         b_false,            		// bullet.explosion
 
-        22,      					// bullet.reg_l
-        23       					// bullet.reg_h
+        22,      		// bullet.reg_l
+        23       		// bullet.reg_h
     },
 
     TANK_AI4_REG_L,
     TANK_AI4_REG_H
 };
 
-
-static void obj_spawn(tank_t * tenkzi)
-{
+//ovo bi trebalo da radi
+static void obj_spawn(tank_t * tenkzi) {
 	Xil_Out32(
 			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + tenkzi->reg_l ),
 			(u32 )0x8F000000 | ( tenkzi->dir << 16 ) | (u32 )tenkzi->type);
@@ -408,7 +404,7 @@ unsigned int	game_time;
 unsigned int	kills;
 unsigned char	game_result;
 
-
+//radi
 unsigned int rand_lfsr113( void )
 {
 	static unsigned int z1 = 12345, z2 = 12345, z3 = 12345, z4 = 12345;
@@ -426,7 +422,7 @@ unsigned int rand_lfsr113( void )
 	return ( z1 ^ z2 ^ z3 ^ z4 );
 }
 
-
+//radi
 static void draw_string( unsigned int x, unsigned int y, unsigned int * text )
 {
     int i;
@@ -439,7 +435,7 @@ static void draw_string( unsigned int x, unsigned int y, unsigned int * text )
     }
 }
 
-
+//radi
 static void map_update( map_entry_t * map )
 {
     unsigned int i;
@@ -453,7 +449,7 @@ static void map_update( map_entry_t * map )
     }
 }
 
-
+//radi
 static void map_reset( map_entry_t * map )
 {
     unsigned int i;
@@ -467,15 +463,14 @@ static void map_reset( map_entry_t * map )
     }
 }
 
-
+//poziva tenkzi i radi
 static void tank_spawn( tank_t * tank )
 {
 	obj_spawn(tank);
 }
 
-
-static void base_spawn(base_t * base)
-{
+//radi
+static void base_spawn(base_t * base) {
 	Xil_Out32(
 			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + base->reg_l ),
 			(u32 )0x8F000000 | 0 | (u32 )base->type);
@@ -483,8 +478,8 @@ static void base_spawn(base_t * base)
 			XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + base->reg_h ),
 			(base->y << 16) | base->x);
 }
-
-
+//
+//radi bas dobro
 static bool_t hitbox( unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, unsigned int w, unsigned int h , direction_t dir)
 {
 
@@ -504,12 +499,12 @@ static bool_t hitbox( unsigned int x1, unsigned int y1, unsigned int x2, unsigne
 			//return ( x1 >= x2 - 16 && x1 <= x2 +8 && y1 >= y2 -8 && y1 <= y2 + h ) ? b_true : b_false;
 			if( x1 > x2 - 16 && x1 < x2)
 			return ( y1 > y2 - 16 && y1 < y2 + 16) ? b_true : b_false;
-	}
+		}
+
 }
 
-
-static direction_t change_dir(direction_t dir)
-{
+//mozda bude trebalo
+static direction_t change_dir(direction_t dir){
 	direction_t dir_new;
 	if (dir==DIR_DOWN){
 		dir_new=DIR_UP;
@@ -524,8 +519,7 @@ static direction_t change_dir(direction_t dir)
 }
 
 
-static void direction_veto()
-{
+static void direction_veto(){
 	if (tank_ai.dir==tank_ai2.dir){
 		if(tank_ai3.dir==tank_ai.dir){
 			tank_ai3.dir=change_dir(tank_ai3.dir);
@@ -613,9 +607,9 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
         	bc->ptr != IMG_8x8_BRICK && bl->ptr != IMG_8x8_IRON && bl->ptr != IMG_8x8_WATER &&
         	br->ptr != IMG_8x8_BRICK && br->ptr != IMG_8x8_IRON && br->ptr != IMG_8x8_WATER)
         {
-        	/*
-        	if(x==tank_ai.x && y==tank_ai.y)
-        		if(hitbox(x, y, tank_ai.x, tank_ai.y, 16, 16, dir) ==b_true) {
+
+        	/*//if(x==tank_ai.x && y==tank_ai.y)
+        		if(hitbox(x, y, tank_ai.x, tank_ai.y, 16, 16, dir) ==b_true){
         			/*tank_ai.dir=change_dir(tank_ai.dir);
         			//tank_ai.dir=DIR_DOWN;
         			tank_move(map,&tank_ai,tank_ai.dir);
@@ -626,8 +620,8 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
         			return b_true;
         	}
 
-        	if(x==tank_ai2.x && y==tank_ai2.y)
-        		if(hitbox(x, y, tank_ai2.x, tank_ai2.y, 16, 16, dir) ==b_true) {
+        	//if(x==tank_ai2.x && y==tank_ai2.y)
+        		if(hitbox(x, y, tank_ai2.x, tank_ai2.y, 16, 16, dir) ==b_true){
         			tank->dir=change_dir(tank->dir);
         			direction_veto();
         			tank_move(map,tank,tank->dir);
@@ -635,8 +629,8 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
         			return b_true;
         	}
 
-        	if(x==tank_ai3.x && y==tank_ai3.y)
-        		if(hitbox(x, y, tank_ai3.x, tank_ai3.y, 16, 16, dir) ==b_true) {
+        	//if(x==tank_ai3.x && y==tank_ai3.y)
+        		if(hitbox(x, y, tank_ai3.x, tank_ai3.y, 16, 16, dir) ==b_true){
         			tank->dir=change_dir(tank->dir);
         			direction_veto();
         			tank_move(map,tank,tank->dir);
@@ -644,30 +638,29 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
         			return b_true;
         	}
 
-        	if(x==tank_ai4.x && y==tank_ai4.y)
-        		if(hitbox(x, y, tank_ai4.x, tank_ai4.y, 16, 16, dir) ==b_true) {
+        	//if(x==tank_ai4.x && y==tank_ai4.y)
+        		if(hitbox(x, y, tank_ai4.x, tank_ai4.y, 16, 16, dir) ==b_true){
         			tank->dir=change_dir(tank->dir);
         			direction_veto();
         			tank_move(map,tank,tank->dir);
         			flagenzi=1;
         			return b_true;
-        	}
-        	*/
+        	}*/
 
-        		if(flagenzi==0)
-        		{
+        			if(flagenzi==0){
         			tank->x = x;
         			tank->y = y;
         			tank->dir = dir;
 
+
         			obj_spawn(tank);
-        		}
+        			}
 
 
-        	return b_true;
+        			return b_true;
 
-        	//}
-        	//}
+        			//}
+        		//	}
         }
     }
 
@@ -727,6 +720,8 @@ static void tank_fire( map_entry_t * map, tank_t * tank )
 }
 
 
+
+
 static void process_bullet( map_entry_t * map, bullet_t * blt )
 {
     unsigned int    x;
@@ -735,6 +730,8 @@ static void process_bullet( map_entry_t * map, bullet_t * blt )
     map_entry_t *   tr;
    	map_entry_t *   bl;
    	map_entry_t *   br;
+
+
 
 	if( !blt->enabled ) {
 		return;
@@ -770,7 +767,7 @@ static void process_bullet( map_entry_t * map, bullet_t * blt )
             tl = &map[ ( ( y + 4 ) / 8 ) * MAP_WIDTH + ( ( x + 4 ) / 8 ) ];
 			tr = &map[ ( ( y + 4 ) / 8 ) * MAP_WIDTH + ( ( x + 11 ) / 8 ) ];
 			bl = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 4 ) / 8 ) ];
-			br = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 11 ) / 8 ) ];
+			br = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 11 ) / 8 ) ];/////menjano sa 15
 
             if( blt->x != x || blt->y != y ) {
             	if( blt == &tank1.bullet ) {
@@ -919,7 +916,7 @@ static void process_bullet( map_entry_t * map, bullet_t * blt )
 												Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_h ), ( blt->y << 16 ) | blt->x);
 						return;
 						}
-					} */
+					}*/
             	} else {
 					if( hitbox( x, y, tank1.x, tank1.y, 16, 16,blt->dir ) == b_true ) {
 						game_result = RES_LOSS;
@@ -1080,6 +1077,8 @@ static void process_ai( tank_t * tank, unsigned int * ai_dir )
 }
 
 
+
+
 static void process_ai2( tank_t * tank, unsigned int * ai_dir2 )
 {
 	unsigned int	tmp_dir;
@@ -1128,8 +1127,7 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 	bool_t			turn;
 	bool_t			fire;
 	unsigned int	i;
-	/*
-	if((rand_lfsr113( ) % 4) ==2){
+	/*if((rand_lfsr113( ) % 4) ==2){
 		tank_move( mape, &tank_ai3, DIR_DOWN);
 	}
 	if((rand_lfsr113( ) % 4) ==3){
@@ -1140,8 +1138,7 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 		}
 	if((rand_lfsr113( ) % 4) ==0){
 			tank_move( mape, &tank_ai3, DIR_RIGHT);
-	}
-	*/
+		}*/
 
 
 	if( game_time % 140 == 0 )
@@ -1177,7 +1174,6 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 		tank_fire( mape, tank );
 	}
 }
-
 
 static void process_ai4( tank_t * tank, unsigned int * ai_dir4 )
 {
@@ -1221,18 +1217,22 @@ static void process_ai4( tank_t * tank, unsigned int * ai_dir4 )
 }
 
 
-void konverzija(map_entry_t *mapa, uint8_t *map)
-{
-	int i; 							// Up
+
+//ne dirati
+void konverzija(map_entry_t *mapa, uint8_t *map){
+	//int i,j,k;
+	int i; // za gornji deo
 	for(i = 0; i <= 320; i++)
 	{
 		mapa[i].z = 0;
 		mapa[i].rot = 0;
 		mapa[i].ptr = 0x03A0;
 		mapa[i].update = 0;
+
 	}
 
-	int j;							// Left
+	int j; // za levi deo ekrana
+
 	i = 0;
 	int step = 80;
 	while(i<27){
@@ -1248,12 +1248,15 @@ void konverzija(map_entry_t *mapa, uint8_t *map)
 	}
 
 
-	int k;							// Central
-	i=2;
-	j=0;
-	while(j<25) {
-		for(k = 488+j*step; k <= 514+j*step; k++)
+	int k; // za centralni deo
+
+
+		i=2;
+		j=0;
+		while(j<25){
+		for(k = 488+j*step; k <= 514+j*step; k++)//3
 		{
+
 			if(map[i*26 + k - (488+j*step)] == 1)
 			{
 				mapa[k].z = 1;
@@ -1299,11 +1302,16 @@ void konverzija(map_entry_t *mapa, uint8_t *map)
 		}
 		i++;
 		j++;
-	}
+		}
 
-	i=0;							// Right
-	while(i<27) {
-		for(j = 354+i*step; j <= 399+i*step; j++)
+
+
+
+
+	//int m; // je za desni deo ekrana
+	i=0;
+	while(i<27){
+		for(j = 354+i*step; j <= 399+i*step; j++)//1
 		{
 			mapa[j].z = 0;
 			mapa[j].rot = 0;
@@ -1313,27 +1321,30 @@ void konverzija(map_entry_t *mapa, uint8_t *map)
 		i++;
 	}
 
-	for(j = 2399; j <= 4800; j++)	// Rest
+
+	//int p; // za ostatak mape
+	for(j = 2399; j <= 4800; j++)
 	{
 		mapa[j].z = 0;
 		mapa[j].rot = 0;
 		mapa[j].ptr = 0x03A0;
 		mapa[j].update = 0;
 	}
+
+
+///////////////////////////////////////////////////////////////////////////////////
+
 }
-
-
-void sleep(int sec)
-{
+//fnja
+void sleep(int sec){
 	int i;
 	for(i=0;i<=sec*10000;i++){
 
 	}
 }
 
-
-void resetovanje(tank_t *tank1, tank_t *tank_ai, tank_t *tank_ai2,tank_t *tank_ai3, bullet_t *blt0, bullet_t *blt1, bullet_t *blt2, bullet_t *blt3, tank_t *tank_ai4, bullet_t *blt4)
-{
+//prelepo radi
+void resetovanje(tank_t *tank1, tank_t *tank_ai, tank_t *tank_ai2,tank_t *tank_ai3, bullet_t *blt0, bullet_t *blt1, bullet_t *blt2, bullet_t *blt3, tank_t *tank_ai4, bullet_t *blt4){
 	tank1->dir=DIR_UP;
 	tank1->x=( MAP_X + MAP_W / 2 +2) * 8;
 	tank1->y=( MAP_Y+2 + MAP_H - 5 ) * 8;
@@ -1363,12 +1374,8 @@ void resetovanje(tank_t *tank1, tank_t *tank_ai, tank_t *tank_ai2,tank_t *tank_a
     tank_ai4->y=( MAP_Y ) * 8;
     tank_ai4->destroyed=b_false;
 	blt4->enabled=b_false;
+
 }
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 void battle_city( void )
 {
 	int rbm,cekaj;

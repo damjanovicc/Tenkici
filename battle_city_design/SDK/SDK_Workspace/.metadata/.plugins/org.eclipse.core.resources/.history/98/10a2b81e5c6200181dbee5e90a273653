@@ -613,9 +613,9 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
         	bc->ptr != IMG_8x8_BRICK && bl->ptr != IMG_8x8_IRON && bl->ptr != IMG_8x8_WATER &&
         	br->ptr != IMG_8x8_BRICK && br->ptr != IMG_8x8_IRON && br->ptr != IMG_8x8_WATER)
         {
-        	/*
-        	if(x==tank_ai.x && y==tank_ai.y)
-        		if(hitbox(x, y, tank_ai.x, tank_ai.y, 16, 16, dir) ==b_true) {
+
+        	/*//if(x==tank_ai.x && y==tank_ai.y)
+        		if(hitbox(x, y, tank_ai.x, tank_ai.y, 16, 16, dir) ==b_true){
         			/*tank_ai.dir=change_dir(tank_ai.dir);
         			//tank_ai.dir=DIR_DOWN;
         			tank_move(map,&tank_ai,tank_ai.dir);
@@ -626,8 +626,8 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
         			return b_true;
         	}
 
-        	if(x==tank_ai2.x && y==tank_ai2.y)
-        		if(hitbox(x, y, tank_ai2.x, tank_ai2.y, 16, 16, dir) ==b_true) {
+        	//if(x==tank_ai2.x && y==tank_ai2.y)
+        		if(hitbox(x, y, tank_ai2.x, tank_ai2.y, 16, 16, dir) ==b_true){
         			tank->dir=change_dir(tank->dir);
         			direction_veto();
         			tank_move(map,tank,tank->dir);
@@ -635,8 +635,8 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
         			return b_true;
         	}
 
-        	if(x==tank_ai3.x && y==tank_ai3.y)
-        		if(hitbox(x, y, tank_ai3.x, tank_ai3.y, 16, 16, dir) ==b_true) {
+        	//if(x==tank_ai3.x && y==tank_ai3.y)
+        		if(hitbox(x, y, tank_ai3.x, tank_ai3.y, 16, 16, dir) ==b_true){
         			tank->dir=change_dir(tank->dir);
         			direction_veto();
         			tank_move(map,tank,tank->dir);
@@ -644,30 +644,29 @@ static bool_t tank_move( map_entry_t * map, tank_t * tank, direction_t dir )
         			return b_true;
         	}
 
-        	if(x==tank_ai4.x && y==tank_ai4.y)
-        		if(hitbox(x, y, tank_ai4.x, tank_ai4.y, 16, 16, dir) ==b_true) {
+        	//if(x==tank_ai4.x && y==tank_ai4.y)
+        		if(hitbox(x, y, tank_ai4.x, tank_ai4.y, 16, 16, dir) ==b_true){
         			tank->dir=change_dir(tank->dir);
         			direction_veto();
         			tank_move(map,tank,tank->dir);
         			flagenzi=1;
         			return b_true;
-        	}
-        	*/
+        	}*/
 
-        		if(flagenzi==0)
-        		{
+        			if(flagenzi==0){
         			tank->x = x;
         			tank->y = y;
         			tank->dir = dir;
 
+
         			obj_spawn(tank);
-        		}
+        			}
 
 
-        	return b_true;
+        			return b_true;
 
-        	//}
-        	//}
+        			//}
+        		//}
         }
     }
 
@@ -770,7 +769,7 @@ static void process_bullet( map_entry_t * map, bullet_t * blt )
             tl = &map[ ( ( y + 4 ) / 8 ) * MAP_WIDTH + ( ( x + 4 ) / 8 ) ];
 			tr = &map[ ( ( y + 4 ) / 8 ) * MAP_WIDTH + ( ( x + 11 ) / 8 ) ];
 			bl = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 4 ) / 8 ) ];
-			br = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 11 ) / 8 ) ];
+			br = &map[ ( ( y + 11 ) / 8 ) * MAP_WIDTH + ( ( x + 11 ) / 8 ) ];/////menjano sa 15
 
             if( blt->x != x || blt->y != y ) {
             	if( blt == &tank1.bullet ) {
@@ -919,7 +918,7 @@ static void process_bullet( map_entry_t * map, bullet_t * blt )
 												Xil_Out32( XPAR_BATTLE_CITY_PERIPH_0_BASEADDR + 4 * ( REGS_BASE_ADDRESS + blt->reg_h ), ( blt->y << 16 ) | blt->x);
 						return;
 						}
-					} */
+					}*/
             	} else {
 					if( hitbox( x, y, tank1.x, tank1.y, 16, 16,blt->dir ) == b_true ) {
 						game_result = RES_LOSS;
@@ -1128,8 +1127,7 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 	bool_t			turn;
 	bool_t			fire;
 	unsigned int	i;
-	/*
-	if((rand_lfsr113( ) % 4) ==2){
+	/*if((rand_lfsr113( ) % 4) ==2){
 		tank_move( mape, &tank_ai3, DIR_DOWN);
 	}
 	if((rand_lfsr113( ) % 4) ==3){
@@ -1140,8 +1138,7 @@ static void process_ai3( tank_t * tank, unsigned int * ai_dir3 )
 		}
 	if((rand_lfsr113( ) % 4) ==0){
 			tank_move( mape, &tank_ai3, DIR_RIGHT);
-	}
-	*/
+		}*/
 
 
 	if( game_time % 140 == 0 )
